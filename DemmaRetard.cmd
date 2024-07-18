@@ -16,9 +16,6 @@ CALL :log suppression des fichiers temporaires de plus de 7j
 CALL :log suppression des journaux de démarrage de plus de 7j
 %cscpt% %clnfl% -r:"%RepLog%" -L>> %FicLog%
 
-CALL :log suppression des fichiers d'Outlook de plus de 15j
-%cscpt% %clnfl% -r:"C:\Users\pcsi-\AppData\Local\Packages\microsoft.windowscommunicationsapps_8wekyb3d8bbwe\LocalState\Files\S0" -L -d:15>> %FicLog%
-
 SET cscpt=
 SET clnfl=
 
@@ -43,7 +40,7 @@ CALL :attend_lance %AppNam% Mozilla %AppNam%
 REM CALL :sleep 5
 
 SET prgm=msedge
-CALL :LogApp Microsoft Edge - Outlook ITS
+CALL :LogApp Microsoft Edge - Outlook Web
 START /d "%ProgramFiles(x86)%\Microsoft\Edge\Application\" %prgm%.exe https://outlook.office.com/mail/
 CALL :attend_lance %prgm% Courrier*
 
