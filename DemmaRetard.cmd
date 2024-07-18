@@ -13,11 +13,8 @@ CALL :log %clnfl% purge fichiers temporaires
 CALL :log suppression des fichiers temporaires de plus de 7j
 %cscpt% %clnfl% -L /S>> %FicLog%
 
-CALL :log suppression des journaux de d‚marrage de plus de 7j
+CALL :log suppression des journaux de dâ€šmarrage de plus de 7j
 %cscpt% %clnfl% -r:"%RepLog%" -L>> %FicLog%
-
-CALL :log suppression des fichiers d'Outlook de plus de 15j
-%cscpt% %clnfl% -r:"C:\Users\pcsi-\AppData\Local\Packages\microsoft.windowscommunicationsapps_8wekyb3d8bbwe\LocalState\Files\S0" -L -d:15>> %FicLog%
 
 SET cscpt=
 SET clnfl=
@@ -74,32 +71,32 @@ ping -n %nbsec% localhost > nul
 GOTO :eof
 
 (
-Attente qu'un ex‚cutable soit en mode running
-PARAM 1 : nom de l'ex‚cutable. ajout de .exe si absent … la fin
-paramŠtres suivants : nom de la fenˆtre, si besoin
+Attente qu'un exâ€šcutable soit en mode running
+PARAM 1 : nom de l'exâ€šcutable. ajout de .exe si absent â€¦ la fin
+paramÅ tres suivants : nom de la fenË†tre, si besoin
 ) 2>nul
 :attend_lance
-SET FicExe=%1   &:: Le 1er paramŠtre contient le nom de l'ex‚cutable
+SET FicExe=%1   &:: Le 1er paramÅ tre contient le nom de l'exâ€šcutable
 IF NOT "%FicExe:~-4%" == ".exe" SET FicExe=%FicExe%.exe
-REM les paramŠtres suivants, facultatifs, contiennent le nom de la fenˆtre
+REM les paramÅ tres suivants, facultatifs, contiennent le nom de la fenË†tre
 SET AllPrm=%*
 FOR /F "tokens=1*" %%a in ("%AllPrm%") DO SET NomFen=%%b
 
 SET essai=1 &:: compteur du nombre d'essais
 SET CodRet=KO &:: code de retour de la fonction
 
-REM tƒche avec le nom de l'application et du statut
-SET cmd2run=tasklist /nh /v /fi ^"IMAGENAME eq %FicExe%^" /fi ^"STATUS eq RUNNING^" &:: commande … ex‚cuter
-REM si le nom de la fenˆtre est fournis, on le concatŠne avec la commande
+REM tÆ’che avec le nom de l'application et du statut
+SET cmd2run=tasklist /nh /v /fi ^"IMAGENAME eq %FicExe%^" /fi ^"STATUS eq RUNNING^" &:: commande â€¦ exâ€šcuter
+REM si le nom de la fenË†tre est fournis, on le concatÅ ne avec la commande
 IF "%NomFen%" NEQ "" SET cmd2run=%cmd2run% /fi ^"WINDOWTITLE eq %NomFen%^"
 REM filtre du retour de la commande pour avoir un code d'erreur
 SET cmd2fnd=%cmd2run% ^| findstr /i /r ^"^^%FicExe% ^"
 
 :boucle
-ECHO ______________ essai num‚ro {%essai%} ______________
-ECHO ______________ essai num‚ro {%essai%} ______________>>%FicLog%
+ECHO ______________ essai numâ€šro {%essai%} ______________
+ECHO ______________ essai numâ€šro {%essai%} ______________>>%FicLog%
 
-REM liste des tƒches avec le nom de l'application, le statut et en option le nom de la fenˆtre
+REM liste des tÆ’ches avec le nom de l'application, le statut et en option le nom de la fenË†tre
 REM sortie terminal
 SET cmd2run
 %cmd2run%
@@ -107,7 +104,7 @@ REM sortie journal
 SET cmd2run>>%FicLog%
 %cmd2run%>>%FicLog% 2>&1
 
-REM filtr‚ sur le nom, pour avoir un code erreur
+REM filtrâ€š sur le nom, pour avoir un code erreur
 REM sortie terminal
 SET cmd2fnd
 %cmd2fnd%
